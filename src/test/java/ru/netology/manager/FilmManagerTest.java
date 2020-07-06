@@ -1,105 +1,68 @@
 package ru.netology.manager;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import ru.netology.domain.Films;
+import ru.netology.repository.FilmRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
-class FilmManagerTest {
-
-    @Test
-    public void getAll(){
-        FilmManager manager = new FilmManager();
-        manager.afishaLength = 10;
-        Films first = new Films(1, 12, "Зеленая Миля", "Драма", "http://что-то там");
-        Films second = new Films(2, 34, "Зеленая Книга", "Драма", "http://что-то там");
-        Films thrid = new Films(3, 233, "Омерзительная восьмерка", "Вестерн", "http://что-то там");
-        Films fourth = new Films(4, 454, "Платформа", "Хоррор", "http://что-то там");
-        Films fifth = new Films(5, 154, "Криминальное чтиво", "Драма", "http://что-то там");
-        Films sixth = new Films(6, 133, "Телохранитель", "Боевик", "http://что-то там");
-        Films seventh = new Films(7, 152, "Афера по-американски", "Криминальный фильм", "http://что-то там");
-        Films eighth = new Films(8, 111, "Социальная сеть", "История", "http://что-то там");
-        Films ninth = new Films(9, 19, "Остров проклятых", "Триллер", "http://что-то там");
-        Films tenth = new Films(10, 47, "1+1", "Драма", "http://что-то там");
+@ExtendWith(MockitoExtension.class)
+class FilmRepositoryTest {
+    @Mock
+    public FilmRepository repository;
+    @InjectMocks
+    private FilmManager manager;
+    Films first = new Films(1, 12, "Зеленая Миля", "Драма", "http://что-то там");
+    Films second = new Films(4, 34, "Зеленая Книга", "Драма", "http://что-то там");
+    Films third = new Films(3, 233, "Омерзительная восьмерка", "Вестерн", "http://что-то там");
 
 
+    @BeforeEach
+    public void setUp() {
         manager.add(first);
         manager.add(second);
-        manager.add(thrid);
-        manager.add(fourth);
-        manager.add(fifth);
-        manager.add(sixth);
-        manager.add(seventh);
-        manager.add(eighth);
-        manager.add(ninth);
-        manager.add(tenth);
-
-        Films[] actual = manager.getAll();
-        Films[] expected = new Films[] {tenth,ninth,eighth,seventh,sixth,fifth,fourth,thrid,second,first};
-
-        assertArrayEquals(actual,expected);
+        manager.add(third);
     }
 
     @Test
-    public void addfilm(){
-        FilmManager manager = new FilmManager();
-        manager.afishaLength = 10;
-        Films first = new Films(1, 12, "Зеленая Миля", "Драма", "http://что-то там");
+    public void shouldRemoveIfExists() {
+        int idToRemove = 1;
 
-        manager.add(first);
+        Films[] returned = new Films[]{second, third};
+        doReturn(returned).when(repository).findAll();
+        doNothing().when(repository).removeById(idToRemove);
 
-
+        manager.removeById(idToRemove);
+        Films[] expected = new Films[]{third,second};
         Films[] actual = manager.getAll();
-        Films[] expected = new Films[] {first};
+        assertArrayEquals(expected,actual);
 
-        assertArrayEquals(actual,expected);
+        verify(repository,times(1)).removeById(idToRemove);
+        verify(repository,times(1)).findAll();
     }
 
     @Test
-    public void emptyFilms() {
-        FilmManager manager = new FilmManager();
-        manager.afishaLength = 10;
+    public void OverLimit() {
+       int idToRemove = 1;
+        Films[] returned = new Films[]{third};
+        doReturn(returned).when(repository).findAll();
+        doNothing().when(repository).removeById(idToRemove);
 
+        manager.removeById(idToRemove);
+        Films[] expected = new Films[]{third};
         Films[] actual = manager.getAll();
-        Films[] expected = new Films[]{};
+        assertArrayEquals(expected,actual);
 
-        assertArrayEquals(actual, expected);
-    }
+        verify(repository,times(1)).removeById(idToRemove);
+        verify(repository,times(1)).findAll();
 
-    @Test
-    public void getMoreFilms(){
-        FilmManager manager = new FilmManager();
-        manager.afishaLength = 10;
-        Films first = new Films(1, 12, "Зеленая Миля", "Драма", "http://что-то там");
-        Films second = new Films(2, 34, "Зеленая Книга", "Драма", "http://что-то там");
-        Films thrid = new Films(3, 233, "Омерзительная восьмерка", "Вестерн", "http://что-то там");
-        Films fourth = new Films(4, 454, "Платформа", "Хоррор", "http://что-то там");
-        Films fifth = new Films(5, 154, "Криминальное чтиво", "Драма", "http://что-то там");
-        Films sixth = new Films(6, 133, "Телохранитель", "Боевик", "http://что-то там");
-        Films seventh = new Films(7, 152, "Афера по-американски", "Криминальный фильм", "http://что-то там");
-        Films eighth = new Films(8, 111, "Социальная сеть", "История", "http://что-то там");
-        Films ninth = new Films(9, 19, "Остров проклятых", "Триллер", "http://что-то там");
-        Films tenth = new Films(10, 47, "1+1", "Драма", "http://что-то там");
 
-        manager.add(sixth);
-        manager.add(seventh);
-        manager.add(eighth);
-        manager.add(ninth);
-        manager.add(tenth);
-        manager.add(first);
-        manager.add(second);
-        manager.add(thrid);
-        manager.add(fourth);
-        manager.add(fifth);
-        manager.add(sixth);
-        manager.add(seventh);
-        manager.add(eighth);
-        manager.add(ninth);
-        manager.add(tenth);
-
-        Films[] actual = manager.getAll();
-        Films[] expected = new Films[] {tenth,ninth,eighth,seventh,sixth,fifth,fourth,thrid,second,first};
-
-        assertArrayEquals(actual,expected);
     }
 }
