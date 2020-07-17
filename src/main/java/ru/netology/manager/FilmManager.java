@@ -1,18 +1,23 @@
 package ru.netology.manager;
 
-import ru.netology.domain.Films;
+import ru.netology.domain.Film;
 
 public class FilmManager {
-    private Films[] films = new Films[0];
+    private Film[] films = new Film[0];
+
+    public FilmManager(int afishaLength) {
+        this.afishaLength = afishaLength;
+    }
+
     int afishaLength;
 
     public FilmManager() {
     }
 
-    public void add(Films item) {
+    public void add(Film item) {
         // создаем новый массив размером на еденицу больше
         int length = films.length + 1;
-        Films[] tmp = new Films[length];
+        Film[] tmp = new Film[length];
 // itar + tab
 // коипруем поэлементно
         System.arraycopy(films, 0, tmp, 0, films.length);
@@ -24,7 +29,7 @@ public class FilmManager {
     }
 
 
-    public Films[] getAll() {
+    public Film[] getAll() {
         int resultLenght = 0;
         if (afishaLength < films.length) {
             resultLenght = afishaLength;
@@ -33,7 +38,7 @@ public class FilmManager {
             resultLenght = films.length;
         }
 
-        Films[] result = new Films[resultLenght];
+        Film[] result = new Film[resultLenght];
         // перебираем массив в прямом порядке
         // но кладем результат в обратном
         for (int i = 0; i < result.length; i++) {

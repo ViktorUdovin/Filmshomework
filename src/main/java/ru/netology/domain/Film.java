@@ -8,9 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 
-public class Films {
+public class Film {
     private int id;
-    private int filmId;
     private String filmName;
     private String filmCategory;
     private String urlCoverFilm;
