@@ -1,15 +1,14 @@
 package ru.netology.repository;
 
-import ru.netology.domain.Films;
+import ru.netology.domain.Film;
 
 
 public class FilmRepository {
-    private Films[] items = new Films[0];
-    int afishaLength;
+    private Film[] items = new Film[0];
 
-    public void save(Films item) {
+    public void save(Film item) {
         int length = items.length + 1;
-        Films[] tmp = new Films[length];
+        Film[] tmp = new Film[length];
         System.arraycopy(items, 0, tmp, 0, items.length);
         int lastIndex = tmp.length - 1;
         tmp[lastIndex] = item;
@@ -17,18 +16,14 @@ public class FilmRepository {
     }
 
 
-    public Films[] findAll() {
+    public Film[] findAll() {
         return items;
     }
 
-    public Films[] findById(int id) {
-        int length = items.length - 1;
-       Films[] tmp = new Films[length];
-        int index = 0;
-        for (Films item : items) {
+    public Film findById(int id) {
+        for (Film item : items) {
             if (item.getId() == id) {
-                tmp[index] = item;
-                return tmp ;
+                return item;
             }
         }
         return null;
@@ -36,9 +31,9 @@ public class FilmRepository {
 
     public void removeById(int id) {
         int length = items.length - 1;
-        Films[] tmp = new Films[length];
+        Film[] tmp = new Film[length];
         int index = 0;
-        for (Films item : items) {
+        for (Film item : items) {
             if (item.getId() != id) {
                 tmp[index] = item;
                 index++;
@@ -49,7 +44,7 @@ public class FilmRepository {
 
     public void removeAll(){
         int length = 0;
-        Films[] tmp = new Films[length];
+        Film[] tmp = new Film[length];
         items = tmp;
     }
 }

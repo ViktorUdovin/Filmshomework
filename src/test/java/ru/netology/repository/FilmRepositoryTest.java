@@ -1,7 +1,7 @@
 package ru.netology.repository;
 
 import org.junit.jupiter.api.Test;
-import ru.netology.domain.Films;
+import ru.netology.domain.Film;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,67 +10,40 @@ FilmRepository repository = new FilmRepository();
 
     @Test
     public void addfilm(){
-        Films first = new Films(1, 12, "Зеленая Миля", "Драма", "http://что-то там");
-        Films second = new Films(2, 34, "Зеленая Книга", "Драма", "http://что-то там");
-        Films third = new Films(3, 233, "Омерзительная восьмерка", "Вестерн", "http://что-то там");
+        Film first = new Film(1,  "Зеленая Миля", "Драма", "http://что-то там");
+        Film second = new Film(2,  "Зеленая Книга", "Драма", "http://что-то там");
+        Film third = new Film(3,  "Омерзительная восьмерка", "Вестерн", "http://что-то там");
 
         repository.save(first);
         repository.save(second);
         repository.save(third);
         repository.save(third);
 
-        Films[] expected = new Films[]{first,second,third,third};
-        Films[] actual = repository.findAll();
+        Film[] expected = new Film[]{first,second,third,third};
+        Film[] actual = repository.findAll();
 
         assertArrayEquals(expected,actual);
 
     }
 
-    @Test
-    public void findfilm(){
-        Films first = new Films(1, 12, "Зеленая Миля", "Драма", "http://что-то там");
-        Films second = new Films(2, 34, "Зеленая Книга", "Драма", "http://что-то там");
-        Films third = new Films(3, 233, "Омерзительная восьмерка", "Вестерн", "http://что-то там");
 
+    @Test
+    public void findFilm(){
+        Film first = new Film(1,  "Зеленая Миля", "Драма", "http://что-то там");
+        Film second = new Film(2,  "Зеленая Книга", "Драма", "http://что-то там");
+        Film third = new Film(3,  "Омерзительная восьмерка", "Вестерн", "http://что-то там");
         repository.save(first);
         repository.save(second);
         repository.save(third);
-        System.out.println(repository.findAll());
-       repository.findById(1);
-
-
-       Films[] expected = repository.findById(1);
-       Films[] actual = repository.findById(1);
-
-        assertArrayEquals(expected,actual);
-
-    }
-
-    @Test
-    public void findbyIdfilm(){
-        Films first = new Films(1, 12, "Зеленая Миля", "Драма", "http://что-то там");
-        Films second = new Films(2, 34, "Зеленая Книга", "Драма", "http://что-то там");
-        Films third = new Films(3, 233, "Омерзительная восьмерка", "Вестерн", "http://что-то там");
-
-        repository.save(first);
-        repository.save(second);
-        repository.save(third);
-        System.out.println(repository.findAll());
-        repository.findById(4);
-
-
-        Films[] expected = null;
-        Films[] actual = repository.findById(4);
-
-        assertArrayEquals(expected,actual);
-
+        Film film = repository.findById(1);
+        assertEquals(first, film);
     }
 
     @Test
     public void deletefilm(){
-        Films first = new Films(1, 12, "Зеленая Миля", "Драма", "http://что-то там");
-        Films second = new Films(2, 34, "Зеленая Книга", "Драма", "http://что-то там");
-        Films third = new Films(3, 233, "Омерзительная восьмерка", "Вестерн", "http://что-то там");
+        Film first = new Film(1,  "Зеленая Миля", "Драма", "http://что-то там");
+        Film second = new Film(2,  "Зеленая Книга", "Драма", "http://что-то там");
+        Film third = new Film(3,  "Омерзительная восьмерка", "Вестерн", "http://что-то там");
 
         repository.save(first);
         repository.save(second);
@@ -79,8 +52,8 @@ FilmRepository repository = new FilmRepository();
         repository.removeById(1);
 
 
-        Films[] expected = new Films[]{second,third};
-        Films[] actual = repository.findAll();
+        Film[] expected = new Film[]{second,third};
+        Film[] actual = repository.findAll();
 
         assertArrayEquals(expected,actual);
 
@@ -88,19 +61,19 @@ FilmRepository repository = new FilmRepository();
 
     @Test
     public void deleteAllFilm(){
-        Films first = new Films(1, 12, "Зеленая Миля", "Драма", "http://что-то там");
-        Films second = new Films(2, 34, "Зеленая Книга", "Драма", "http://что-то там");
-        Films third = new Films(3, 233, "Омерзительная восьмерка", "Вестерн", "http://что-то там");
+        Film first = new Film(1,  "Зеленая Миля", "Драма", "http://что-то там");
+        Film second = new Film(2,  "Зеленая Книга", "Драма", "http://что-то там");
+        Film third = new Film(3,  "Омерзительная восьмерка", "Вестерн", "http://что-то там");
 
         repository.save(first);
         repository.save(second);
         repository.save(third);
         System.out.println(repository.findAll());
-        repository.removeAll();
+        repository.Film removeAll();
 
 
-        Films[] expected = new Films[]{};
-        Films[] actual = repository.findAll();
+        Film[] expected = new Film[]{};
+        Film[] actual = repository.findAll();
 
         assertArrayEquals(expected,actual);
 

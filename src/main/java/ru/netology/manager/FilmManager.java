@@ -1,12 +1,12 @@
 package ru.netology.manager;
 
-import ru.netology.domain.Films;
+import ru.netology.domain.Film;
 import ru.netology.repository.FilmRepository;
 
 public class FilmManager {
     private FilmRepository repository;
-    private Films[] films = new Films[0];
     int afishaLength = 10;
+
     public FilmManager(FilmRepository repository) {
        this.repository = repository;
     }
@@ -16,15 +16,15 @@ public class FilmManager {
     }
 
 
-    public void add(Films item) {
+    public void add(Film item) {
        repository.save(item);
     }
 
 
-    public Films[] getAll() {
+    public Film[] getAll() {
 
-        Films[] films = repository.findAll();
-        Films[] result = new Films[films.length];
+        Film[] films = repository.findAll();
+        Film[] result = new Film[films.length];
         for (int i = 0; i < result.length; i++) {
             int index = films.length - i - 1;
 
