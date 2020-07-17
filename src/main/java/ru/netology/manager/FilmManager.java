@@ -6,11 +6,14 @@ import ru.netology.repository.FilmRepository;
 public class FilmManager {
     private FilmRepository repository;
     private Films[] films = new Films[0];
-    int afishaLength;
+    int afishaLength = 10;
     public FilmManager(FilmRepository repository) {
        this.repository = repository;
     }
 
+    public FilmManager(int afishaLength) {
+        this.afishaLength = afishaLength;
+    }
 
 
     public void add(Films item) {
