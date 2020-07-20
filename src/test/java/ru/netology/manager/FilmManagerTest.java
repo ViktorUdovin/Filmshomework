@@ -40,11 +40,6 @@ class FilmRepositoryTest {
         manager.add(second);
         manager.add(third);
         manager.add(fourth);
-    }
-
-    @Test
-    public void getAll(){
-        FilmManager manager = new FilmManager(10);
         manager.add(fourth);
         manager.add(fifth);
         manager.add(sixth);
@@ -52,10 +47,19 @@ class FilmRepositoryTest {
         manager.add(eighth);
         manager.add(ninth);
         manager.add(tenth);
-        Film[] actual = manager.getAll();
-        Film[] expected = new Film[] {tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second,first};
 
-        assertArrayEquals(actual,expected);
+    }
+
+    @Test
+    public void getAll() {
+
+        Film[] returned = new Film[]{first,second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth};
+        doReturn(returned).when(repository).findAll();
+
+        Film[] expected = new Film[] {tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second,first};
+        Film[] actual = manager.getAll();
+        assertArrayEquals(expected,actual);
+        verify(repository,times(1)).findAll();
     }
 
 

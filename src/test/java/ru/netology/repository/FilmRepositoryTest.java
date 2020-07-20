@@ -69,7 +69,7 @@ FilmRepository repository = new FilmRepository();
         repository.save(second);
         repository.save(third);
         System.out.println(repository.findAll());
-        repository.Film removeAll();
+        repository.removeAll();
 
 
         Film[] expected = new Film[]{};
