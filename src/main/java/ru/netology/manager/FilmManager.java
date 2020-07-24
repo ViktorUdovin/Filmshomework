@@ -4,14 +4,14 @@ import ru.netology.domain.Film;
 
 public class FilmManager {
     private Film[] films = new Film[0];
+    int afishaLength;
 
     public FilmManager(int afishaLength) {
         this.afishaLength = afishaLength;
     }
 
-    int afishaLength;
-
     public FilmManager() {
+        afishaLength = 10;
     }
 
     public void add(Film item) {
@@ -31,6 +31,9 @@ public class FilmManager {
 
     public Film[] getAll() {
         int resultLenght = 0;
+        if (afishaLength < 0){
+            resultLenght = afishaLength;
+        }
         if (afishaLength < films.length) {
             resultLenght = afishaLength;
         }
