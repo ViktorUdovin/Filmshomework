@@ -32,7 +32,7 @@ public class FilmManager {
             resultLenght = films.length;
         }
         if (afishaLength == 0) {
-            resultLenght = 10;
+            resultLenght = afishaLength;
 
         }
 
