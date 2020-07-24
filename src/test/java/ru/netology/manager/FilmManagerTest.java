@@ -64,6 +64,49 @@ class FilmRepositoryTest {
 
 
     @Test
+    public void getAllThree() {
+
+        Film[] returned = new Film[]{first,second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth};
+        manager.afishaLength = 3;
+        doReturn(returned).when(repository).findAll();
+
+        Film[] expected = new Film[] {tenth,ninth,eighth};
+        Film[] actual = manager.getAll();
+        assertArrayEquals(expected,actual);
+        verify(repository,times(1)).findAll();
+    }
+
+    @Test
+    public void getAllNull() {
+
+        Film[] returned = new Film[]{first,second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth};
+        manager.afishaLength = 0;
+        doReturn(returned).when(repository).findAll();
+
+        Film[] expected = new Film[] {tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second,first};
+        Film[] actual = manager.getAll();
+        assertArrayEquals(expected,actual);
+        verify(repository,times(1)).findAll();
+    }
+
+    @Test
+    public void getAllOver() {
+
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+
+        Film[] returned = new Film[] {first,second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth,first,second,third};
+        manager.afishaLength = 13;
+        doReturn(returned).when(repository).findAll();
+
+        Film[] expected = new Film[] {third,second,first,tenth,ninth,eighth,seventh,sixth,fifth,fourth,third,second,first};
+        Film[] actual = manager.getAll();
+        assertArrayEquals(expected,actual);
+        verify(repository,times(1)).findAll();
+    }
+
+    @Test
     public void shouldRemoveIfExists() {
         int idToRemove = 1;
 

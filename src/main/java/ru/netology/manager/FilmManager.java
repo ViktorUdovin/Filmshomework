@@ -24,7 +24,19 @@ public class FilmManager {
     public Film[] getAll() {
 
         Film[] films = repository.findAll();
-        Film[] result = new Film[films.length];
+        int resultLenght = 0;
+        if (afishaLength < films.length) {
+            resultLenght = afishaLength;
+        }
+        if (afishaLength >= films.length){
+            resultLenght = films.length;
+        }
+        if (afishaLength == 0) {
+            resultLenght = 10;
+
+        }
+
+        Film[] result = new Film[resultLenght];
         for (int i = 0; i < result.length; i++) {
             int index = films.length - i - 1;
 
@@ -33,6 +45,7 @@ public class FilmManager {
         }
         return result;
     }
+
 
     public void removeById(int id) {
         repository.removeById(id);

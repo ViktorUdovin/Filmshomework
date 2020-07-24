@@ -42,9 +42,8 @@ public class FilmRepository {
         items = tmp;
     }
 
+
     public void removeAll(){
-        int length = 0;
-        Film[] tmp = new Film[length];
-        items = tmp;
+        items = new Film[0];
     }
 }
